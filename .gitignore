@@ -1,9 +1,6 @@
 /.idea
 /.venv
 /.ipynb_checkpoints
-/data
-/data/raw/19e89e0e-en.zip
-/data/raw/19e89e0e-en/
 /cache
 /tmp*
 /out

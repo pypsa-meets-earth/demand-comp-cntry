@@ -1,4 +1,4 @@
-# demand-competition-country
+# demand-comp-cntry
 A competition for forecasting electricity demand at the country-level using a standard backtesting framework
 
 ## Introduction
