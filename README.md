@@ -28,6 +28,10 @@ Before getting started, it is recommended that users of and contributors to this
   mkdir cache
   mkdir out  
   ~~~~
+* Download data
+  ~~~~
+  python demand/data/download_data.py
+  ~~~~
 * Ensure you have [World energy statistics (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_wes_2020-68578195-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_wes_2020-68578195-en.zip`
 * Ensure you have [World energy balances (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_web_2020-cde01922-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_web_2020-cde01922-en.zip`
 * Install conda environment:
