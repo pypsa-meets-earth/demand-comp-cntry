@@ -5,9 +5,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from dotenv import load_dotenv, find_dotenv
+# from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
+# load_dotenv(find_dotenv())
 sys.path.append(os.environ.get("PROJECT_ROOT"))
 
 import demand.models.utils_general as ug
