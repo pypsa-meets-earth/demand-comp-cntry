@@ -27,8 +27,7 @@ Before getting started, it is recommended that users of and contributors to this
   conda activate demand-comp
   ~~~~
 
-  ~~~~
-* Download data:
+* Download data (basic understanding of snakemake purpose: [here](https://github.com/pypsa-meets-africa/pypsa-africa-hackathon/blob/hackathon2022/3_how_to_execute_the_workflow.ipynb)):
   ~~~~
   snakemake --cores 1 download_data
   ~~~~
