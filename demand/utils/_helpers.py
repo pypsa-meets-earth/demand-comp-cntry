@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: : 2017-2020 The PyPSA-Eur Authors
+# SPDX-FileCopyrightText: : 2022 The PyPSA-Africa Authors
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 import os
