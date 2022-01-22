@@ -29,9 +29,6 @@ wildcard_constraints:
     opts="[-+a-zA-Z0-9\.]*",
 
 
-# rule run_all:
-#     input: expand("results/networks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}.nc", **config['scenario'])
-
 rule download_data:
     output:
         cccodes="data/raw/country-and-continent-codes-list-csv_csv.zip",
