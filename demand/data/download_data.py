@@ -1,12 +1,10 @@
 import os, sys, time, zipfile
 import urllib.request
 
-project_root = os. getcwd()
+project_root = os.getcwd()
 sys.path.append(project_root)
 from demand.utils._helpers import configure_logging
 
-# from dotenv import load_dotenv, find_dotenv
-# load_dotenv(find_dotenv())
 
 def download_raw_data(source_url, target_path, data_label):
     try:

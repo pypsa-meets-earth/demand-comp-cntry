@@ -5,10 +5,8 @@ import scipy.stats as st
 
 plt.style.use('ggplot')
 
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
-sys.path.append(os.environ.get("PROJECT_ROOT"))
+project_root = os.getcwd()
+sys.path.append(project_root)
 
 
 def plot_arima(predicted_mean, se_mean, train_ts_temp, test_ts_temp, train_temp, test_temp, countries_dir, continent, country, per_capita_flag):

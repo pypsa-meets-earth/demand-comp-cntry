@@ -12,6 +12,12 @@ HTTP = HTTPRemoteProvider()
 if not exists("config.yaml"):
     copyfile("config.default.yaml", "config.yaml")
 
+if not exists("out"):
+    os.mkdir(os.path.join(os.getcwd(), "out"))
+
+if not exists("cache"):
+    os.mkdir(os.path.join(os.getcwd(), "cache"))
+
 
 configfile: "config.yaml"
 
@@ -43,3 +49,10 @@ rule download_data:
         atalla_cdd_hdd="data/raw/CDD_HDD_18_Atalla_20210406.zip"
     log: "logs/download.log"
     script: "demand/data/download_data.py"
+
+
+rule run_arima:
+    input:
+        cccodes="data/raw/country-and-continent-codes-list-csv_csv.zip"
+    log: "logs/download.log"
+    script: "demand/models/run_arima.py"
