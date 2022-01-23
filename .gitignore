@@ -10,3 +10,6 @@
 *.zip
 *.tar.gz
 .env
+.snakemake/
+logs/
+config.yaml

@@ -5,10 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
-sys.path.append(os.environ.get("PROJECT_ROOT"))
+project_root = os.getcwd()
+sys.path.append(project_root)
 
 import demand.models.utils_general as ug
 from demand.utils.cache import cached_with_io
@@ -26,7 +24,7 @@ def parse_args(args):
     # static
     # download_data.py
     parser.add_argument('-cp', '--cntry_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data',
+                        default=os.path.join(project_root, 'data',
                                              'raw', 'country-and-continent-codes-list-csv_csv',
                                              'country-and-continent-codes-list-csv_csv.csv'),
                         help='path to lookup tables for countries.')
@@ -35,7 +33,7 @@ def parse_args(args):
     # download_data.py
     # https://data.worldbank.org/indicator/SP.POP.TOTL
     parser.add_argument('-pp', '--pop_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'wb_pop',
                                              'API_SP.POP.TOTL_DS2_en_excel_v2_10058049_clean.csv'),
                         help='path to raw population data.')
@@ -43,14 +41,14 @@ def parse_args(args):
     # 1960-2018
     # download_data.py
     parser.add_argument('-gp', '--gdp_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw', 'GDPpc-wb-1960-2018',
+                        default=os.path.join(project_root, 'data', 'raw', 'GDPpc-wb-1960-2018',
                                              'GDPpc-wb-1960-2018.csv'),
                         help='path to raw gdp data.')
 
     # 1970-2018
     # download_data.py
     parser.add_argument('-gps', '--gdp_path_somalia',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'UNdata_Export_20201006_214431107_SomaliaGDPpc',
                                              'UNdata_Export_20201006_214431107_SomaliaGDPpc.csv'),
                         help='path to raw gdp data for somalia.')
@@ -58,7 +56,7 @@ def parse_args(args):
     # 1961-2016
     # download_data.py
     parser.add_argument('-tp', '--temp_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'temperature_1960-2016',
                                              'temperature_1960-2016.xlsx'),
                         help='path to raw temperature data.')
@@ -66,7 +64,7 @@ def parse_args(args):
     # 1961-2016
     # download_data.py
     parser.add_argument('-rp', '--rain_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'rainfall_1960-2016',
                                              'rainfall_1960-2016.xlsx'),
                         help='path to raw rainfall data.')
@@ -74,7 +72,7 @@ def parse_args(args):
     # 1971-2018
     # download_data.py
     parser.add_argument('-isp', '--iea_wes_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'iea_wes_2020-68578195-en',
                                              'WBES-2020-1-EN-20210318T100006.csv'),
                         help='path to raw iea world energy statistics data.')
@@ -82,28 +80,28 @@ def parse_args(args):
     # 1971-2018
     # download_data.py
     parser.add_argument('-ibp', '--iea_web_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'iea_web_2020-cde01922-en',
                                              'WBAL-2020-1-EN-20210301T100458.csv'),
                         help='path to raw iea world energy balances data.')
 
     # 2010-2019 - not currently using this
     parser.add_argument('-cip', '--cdd_iea_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'CDD_18_IEA_20210406',
                                              'Weatherforenergytracker-highlights-CDD18-daily-annual_w_iso.xlsx'),
                         help='CDD 18degC data from the IEA.')
 
     # 2010-2019 - not currently using this
     parser.add_argument('-hip', '--hdd_iea_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'HDD_18_IEA_20210406',
                                              'Weatherforenergytracker-highlights-HDD18-daily-annual_w_iso.xlsx'),
                         help='HDD 18degC data from the IEA.')
 
     # 195X-2013
     parser.add_argument('-chp', '--cdd_hdd_atalla_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'CDD_HDD_18_Atalla_20210406',
                                              '1-s2.0-S0360544217318388-mmc1_w_iso.xlsx'),
                         help='CDD and HDD 18degC data from the Atalla et al.')
@@ -111,7 +109,7 @@ def parse_args(args):
     # battle_deaths_path
     # 1989-2019
     parser.add_argument('-bdp', '--battle_deaths_path',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'data', 'raw',
+                        default=os.path.join(project_root, 'data', 'raw',
                                              'API_VC.BTL.DETH_DS2_en_csv_v2_2167203',
                                              'API_VC.BTL.DETH_DS2_en_csv_v2_2167203.csv'),
                         help='wb battle deaths data path.')
@@ -603,11 +601,11 @@ def get_hdd_cdd(cdd_iea_path, hdd_iea_path, cdd_hdd_atalla_path, plot_atalla_vs_
                                                  hdd_iea_df['country_code'].unique())
 
         # make cdd out path
-        cdd_out_path = os.path.join(os.environ.get("PROJECT_ROOT"), 'out', 'cdd')
+        cdd_out_path = os.path.join(project_root, 'out', 'cdd')
         os.makedirs(cdd_out_path, exist_ok=True)
 
         # make cdd out path
-        hdd_out_path = os.path.join(os.environ.get("PROJECT_ROOT"), 'out', 'hdd')
+        hdd_out_path = os.path.join(project_root, 'out', 'hdd')
         os.makedirs(hdd_out_path, exist_ok=True)
 
         # print pngs of plots by country
@@ -682,7 +680,7 @@ def compile_data(args, all_feats=None, feat_target=None, feats_complete_req=None
 
     args_string = json.dumps(args)
     args_hash = hashlib.sha256(args_string.encode('utf-8')).hexdigest()
-    args_hash_pickle_path = Path(os.path.join(os.environ.get('PROJECT_ROOT'), 'data', 'processed', args_hash + '.p'))
+    args_hash_pickle_path = Path(os.path.join(project_root, 'data', 'processed', args_hash + '.p'))
 
     # save to file, if not already a file
     if not args_hash_pickle_path.is_file():
@@ -1617,7 +1615,7 @@ def load_data(fold_num_test=0,
 
     load_data_args_string = json.dumps(load_data_args)
     load_data_args_hash = hashlib.sha256(load_data_args_string.encode('utf-8')).hexdigest()
-    load_data_args_hash_folder_path = os.path.join(os.environ.get('PROJECT_ROOT'), 'data', 'processed',
+    load_data_args_hash_folder_path = os.path.join(project_root, 'data', 'processed',
                                                    df_combination_uid + f'-ypr{years_pre}-ypo{years_post}',
                                                    f'test{fold_num_test}-val{fold_num_val}-of-n{num_folds}')
     os.makedirs(load_data_args_hash_folder_path, exist_ok=True)

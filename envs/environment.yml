@@ -1,0 +1,21 @@
+name: demand-comp
+channels:
+  - conda-forge
+  - defaults
+  - bioconda
+dependencies:
+  - python>=3.8
+  - pip
+  - snakemake-minimal
+
+  - numpy
+  - pandas
+  - geopandas
+  - yaml
+
+  - matplotlib
+  - scipy
+  - scikit-learn
+
+  - statsmodels
+  - openpyxl

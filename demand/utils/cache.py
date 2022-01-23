@@ -2,15 +2,14 @@ import copy
 import sys, os, pickle, json, hashlib
 from functools import wraps
 
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
-sys.path.append(os.environ.get("PROJECT_OUT"))
-
+out_dir = os.path.join(os.getcwd(), "out")
+cache_dir = os.path.join(os.getcwd(), "cache")
+sys.path.append(out_dir)
 
 
 def cached_with_io(func):
 
-    func.cache_pickle_path = os.path.join(os.environ.get("PROJECT_CACHE"), func.__name__ + '.p')
+    func.cache_pickle_path = os.path.join(cache_dir, func.__name__ + '.p')
 
     if os.path.exists(func.cache_pickle_path):
         func.cache = pickle.load(open(func.cache_pickle_path, "rb"))
@@ -52,7 +51,7 @@ def cached_with_io(func):
             func.cache[args_hash] = func(*args)
 
             # save updated cache to picklefile
-            os.makedirs(os.environ.get("PROJECT_CACHE"), exist_ok=True)
+            os.makedirs(cache_dir, exist_ok=True)
             pickle.dump(func.cache, open(func.cache_pickle_path, "wb"), protocol=4)
 
             return func.cache[args_hash]

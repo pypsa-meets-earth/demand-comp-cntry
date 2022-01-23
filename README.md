@@ -12,34 +12,32 @@ Before getting started, it is recommended that users of and contributors to this
 
 
 ## Setup
-* Set up an appropriate `.env` file in the project root. This is listed in `.gitignore`, and as such, is ignored by Git. PROJECT_ROOT, PROJECT_CACHE, and PROJECT_OUT directories must be specified. For example, 
+* Set path to project root:
   ~~~~
-  touch .env
+  cd <PATH>/demand-comp-cntry
   ~~~~
-  And, for example, populate this as follows:
-  ~~~~
-  PROJECT_ROOT=<project root>
-  PROJECT_CACHE=<project cache>
-  PROJECT_OUT=<project out>
-  ~~~~
-* Make appropriate cache and out folders:
-  ~~~~
-  cd <project root>
-  mkdir cache
-  mkdir out  
-  ~~~~
-* Download data
-  ~~~~
-  python demand/data/download_data.py
-  ~~~~
-* Ensure you have [World energy statistics (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_wes_2020-68578195-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_wes_2020-68578195-en.zip`
-* Ensure you have [World energy balances (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_web_2020-cde01922-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_web_2020-cde01922-en.zip`
+
 * Install conda environment:
   ~~~~
-  conda env create -f environment.yml
+  conda env create -f envs/environment.yml
   ~~~~
+
+* Activate environment:
+  ~~~~
+  conda activate demand-comp
+  ~~~~
+
+* Download data (basic understanding of snakemake purpose: [here](https://github.com/pypsa-meets-africa/pypsa-africa-hackathon/blob/hackathon2022/3_how_to_execute_the_workflow.ipynb)):
+  ~~~~
+  snakemake --cores 1 download_data
+  ~~~~
+
+* Ensure you have [World energy statistics (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_wes_2020-68578195-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_wes_2020-68578195-en.zip` (currently manual download)
+* Ensure you have [World energy balances (Edition 2020)](https://www.oecd-ilibrary.org/energy/data/iea-world-energy-statistics-and-balances_enestats-data-en#archive) data, filename `iea_web_2020-cde01922-en.zip`, in directory `<PROJECT_ROOT>/data/raw/iea_web_2020-cde01922-en.zip` and unzip these (currently manual download)
+
 * Run test script using ARIMA models:
   ~~~~
-  cd <project root>
-  python demand/models/run_arima.py
+  snakemake --cores 1 run_arima
   ~~~~
+
+* Analyse the outputs in demand-comp-cntry/out 

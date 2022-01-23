@@ -3,10 +3,9 @@ import numpy as np
 
 os.environ["OMP_NUM_THREADS"] = "1"
 
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
-sys.path.append(os.environ.get("PROJECT_ROOT"))
+project_root = os. getcwd()
+sys.path.append(project_root)
+from demand.utils._helpers import configure_logging
 
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -43,7 +42,7 @@ def parse_args(args):
     parser.add_argument('-lo', '--load_model', type=ug.str2bool, nargs='?',
                         const=True, default=False, help='whether to load a saved model, or run from scratch.')
     parser.add_argument('-od', '--output_dir',
-                        default=os.path.join(os.environ.get("PROJECT_ROOT"), 'out', 'arima'),
+                        default=os.path.join(project_root, 'out', 'arima'),
                         help='the output directory, before modifications')
     parser.add_argument('-tid', '--task_id', default="0",
                         help='prepend the SLURM task id to the output directory, separated by an underscore. (default "")')
@@ -277,7 +276,18 @@ def main(args):
     run_arima(args)
 
 
+# if __name__ == "__main__":
+#     import sys
+
+#     main(sys.argv[1:])
+
 if __name__ == "__main__":
+    if "snakemake" not in globals():
+        from demand.utils._helpers import mock_snakemake
+        os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        snakemake = mock_snakemake("run_arima")
+    configure_logging(snakemake)
+    
     import sys
 
     main(sys.argv[1:])
